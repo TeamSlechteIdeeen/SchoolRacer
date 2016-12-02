@@ -5,9 +5,16 @@ public class Patrol : MonoBehaviour
 
     // put the points from unity interface
     public Transform[] wayPointList;
+    public Transform[] wayPointList2;
 
     public int ResetAfter = 0;
+    public float MaxOffset = 0.1f;
     public int currentWayPoint = 0;
+    public int currentWayPoint2 = 0;
+
+    private int randlist = 0;
+    private float offset= 0;
+
     Transform targetWayPoint;
 
     public Rigidbody rb;
@@ -25,21 +32,29 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        randlist = Random.Range(1, 2);
         // check if we have somewere to walk
         if (currentWayPoint < this.wayPointList.Length)
         {
             if (targetWayPoint == null)
-                targetWayPoint = wayPointList[currentWayPoint];
+                if(randlist == 1)
+                {
+                    targetWayPoint = wayPointList[currentWayPoint];
+                } else
+                {
+                    targetWayPoint = wayPointList[currentWayPoint2];
+                }
+                
             walk();
         }
     }
 
     void walk()
     {
+        
         //base the speed of the NPC vehicles on a random float between 6.5 and 7, to avoid "waypoint fighting"
         randomvar = Random.Range(60, 70);
         speed = randomvar / 10;
-
         // rotate towards the target
         transform.forward = Vector3.RotateTowards(transform.forward, targetWayPoint.position - transform.position, speed * Time.deltaTime, 0.0f);
 

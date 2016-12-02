@@ -53,7 +53,7 @@ public class test : MonoBehaviour {
     void Update()
     {
         float v = Input.GetAxis("Vertical");
-        rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5);
+        rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5 * -1);
     }
 }
 
