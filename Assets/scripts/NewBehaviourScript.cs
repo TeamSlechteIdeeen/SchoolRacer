@@ -1,19 +1,26 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class NewBehaviourScript : MonoBehaviour
+{
     public float Lap = 1f;
     public float AmountOfLaps = 3f;
     public AudioSource Music;
 
     public Text winText;
+    public Text TimerTxt;
     //public AudioClip yay;
     //private AudioSource source;
 
+    private float Timer = 0f;
     private int round = 0;
     private int finish = -1;
     private int checkpoint = 0;
+    private int TimeRnd = 0;
+
+    private float min = 0;
+    private float sec = 0;
 
     private string str = "";
 
@@ -25,20 +32,28 @@ public class NewBehaviourScript : MonoBehaviour {
 
     //public EngineAudioOptions engineSoundStyle = EngineAudioOptions.FourChannel;// Set the default audio options to be four channel
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         //source = GetComponent<AudioSource>();
         winText.text = "Lap 1/3";
+        TimerTxt.text = "";
         Music = GetComponent<AudioSource>();
         Debug.Log("kek");
         Music.Play();
     }
 
+    void Update()
+    {
+        Timer += Time.deltaTime;
+        min = (Timer / 60f);
+        sec = (Timer % 60f);
+    }
+
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "finish" && finish == checkpoint)
+        if (col.gameObject.name == "finish")
         {
             Debug.Log("booped da finish");
-            
             finish++;
         }
         if (col.gameObject.name == "checkpoint1")
@@ -46,20 +61,22 @@ public class NewBehaviourScript : MonoBehaviour {
             Debug.Log("booped da shagpoint");
             checkpoint++;
         }
-        if(finish == checkpoint)
-        {   if(checkpoint == 3)
+        if (finish == checkpoint)
+        {
+            round = finish;
+            if(round > 2)
             {
-                //Music.Stop();
-                //source.PlayOneShot(yay, 1);
-                winText.text = "";
-                Debug.Log("finish is bigger");
-            }
-            else
+                str = "";
+                TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
+                Debug.Log(Timer);
+            } else
             {
-                round = finish;
-                Debug.Log("else");
+                str = "Lap " + (round + 1) + "/3";
+                TimerTxt.text = "";
             }
-            winText.text = "Lap " + (round + 1) + "/3";
+            Debug.Log(checkpoint);
+            Debug.Log(finish);
         }
+        winText.text = str;
     }
 }
