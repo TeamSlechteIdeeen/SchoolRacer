@@ -67,6 +67,10 @@ public class NewBehaviourScript : MonoBehaviour
             if(round > 2)
             {
                 str = "";
+                for(min = 0; min < Mathf.Round(Timer); min++)
+                {
+                    TimerTxt.text = "Time: " + Mathf.Round(min) + " seconds";
+                }
                 TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
                 Debug.Log(Timer);
             } else
