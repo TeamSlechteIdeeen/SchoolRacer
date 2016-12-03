@@ -6,6 +6,7 @@ public class test : MonoBehaviour {
 
     public float forwardSpeed = 3.0f;
     public float backwardSpeed = 2.0f;
+    public bool ready;
 
     public Rigidbody rb;
     /*public AudioSource EngineSound;
@@ -28,7 +29,7 @@ public class test : MonoBehaviour {
      
     void OnGUI()
     {
-        while (GUI.RepeatButton(new Rect(1400, 150, 120, 180), "Forward") == true)
+        while (GUI.RepeatButton(new Rect(1400, 600, 180, 220), "Forward") == true && ready == true)
         {
             var locVel = transform.InverseTransformDirection(rb.velocity);
             locVel.z = forwardSpeed;
@@ -40,7 +41,7 @@ public class test : MonoBehaviour {
 
         }
        
-        while (GUI.RepeatButton(new Rect(10, 150, 120, 180), "Backward") == true)
+        while (GUI.RepeatButton(new Rect(10, 600, 180, 220), "Backward") == true && ready == true)
         {
             var locVel = transform.InverseTransformDirection(rb.velocity);
             locVel.z = backwardSpeed;
@@ -52,8 +53,11 @@ public class test : MonoBehaviour {
 
     void Update()
     {
-        float v = Input.GetAxis("Vertical");
-        rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5 * -1);
+        if(ready == true)
+        {
+            float v = Input.GetAxis("Vertical");
+            rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5 * -1);
+        }
     }
 }
 

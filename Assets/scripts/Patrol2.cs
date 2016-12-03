@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class Patrol : MonoBehaviour
+public class Patrol2 : MonoBehaviour
 {
 
     // put the points from unity interface
     public Transform[] wayPointList;
-    public Transform[] wayPointList2;
 
     public int ResetAfter = 0;
     public float MaxOffset = 0.1f;
@@ -38,14 +37,7 @@ public class Patrol : MonoBehaviour
         if (currentWayPoint < this.wayPointList.Length)
         {
             if (targetWayPoint == null)
-                if(randlist == 1)
-                {
-                    targetWayPoint = wayPointList[currentWayPoint];
-                } else
-                {
-                    targetWayPoint = wayPointList[currentWayPoint2];
-                }
-                
+                targetWayPoint = wayPointList[currentWayPoint];
             walk();
         }
     }
@@ -68,7 +60,7 @@ public class Patrol : MonoBehaviour
             {
                 if (currentWayPoint >= ResetAfter)
                 {
-                    currentWayPoint = 0;
+                    currentWayPoint = 4;
                 }
                 else
                 {
