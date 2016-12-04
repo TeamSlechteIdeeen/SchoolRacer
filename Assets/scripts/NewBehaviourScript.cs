@@ -52,12 +52,13 @@ public class NewBehaviourScript : MonoBehaviour
         Music.Play();
         runshit = true;
 
-        player.GetComponent<test>().ready = false;
+        player.GetComponent<UnityUIController>().ready = false;
         npc1.GetComponent<Patrol>().ready = false;
         npc2.GetComponent<Patrol>().ready = false;
         npc3.GetComponent<Patrol>().ready = false;
         npc4.GetComponent<Patrol>().ready = false;
         koos.GetComponent<Patrol2>().ready = false;
+        koos.GetComponent<VillainSoundFX>().start = false;
 
 
         // accesses the bool named "isOnFire" and changed it's value.
@@ -75,7 +76,7 @@ public class NewBehaviourScript : MonoBehaviour
             if (Timer > 3 || Timer < 10)
             {
                 CountdownTxt.text = "";
-                player.GetComponent<test>().ready = true;
+                player.GetComponent<UnityUIController>().ready = true;
                 npc1.GetComponent<Patrol>().ready = true;
                 npc2.GetComponent<Patrol>().ready = true;
                 npc3.GetComponent<Patrol>().ready = true;
@@ -86,7 +87,7 @@ public class NewBehaviourScript : MonoBehaviour
                 if (Timer < 4)
                 {
                     CountdownTxt.text = "" + (4 - Mathf.Round(Timer));
-                    player.GetComponent<test>().ready = false;
+                    player.GetComponent<UnityUIController>().ready = false;
                     npc1.GetComponent<Patrol>().ready = false;
                     npc2.GetComponent<Patrol>().ready = false;
                     npc3.GetComponent<Patrol>().ready = false;
@@ -101,18 +102,19 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if (col.gameObject.name == "finish")
         {
-            //Debug.Log("booped da finish");
+            Debug.Log("booped da finish");
             finish++;
         }
         if (col.gameObject.name == "checkpoint1")
         {
-            //Debug.Log("booped da shagpoint");
+            Debug.Log("booped da shagpoint");
             checkpoint++;
         }
         if (col.gameObject.name == "villainPoint")
         {
             //Debug.Log("booped da shagpoint");
             koos.GetComponent<Patrol2>().ready = true;
+            koos.GetComponent<VillainSoundFX>().start = true;
 
         }
         if (finish == checkpoint)
@@ -121,9 +123,9 @@ public class NewBehaviourScript : MonoBehaviour
             if(round > 2)
             {
                 str = "";
-                TimerTxt.text = "Time: " + Mathf.Round(min) + " seconds";
+                TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
                 runshit = false;
-                player.GetComponent<test>().ready = false;
+                player.GetComponent<UnityUIController>().ready = false;
                 npc1.GetComponent<Patrol>().ready = false;
                 npc2.GetComponent<Patrol>().ready = false;
                 npc3.GetComponent<Patrol>().ready = false;

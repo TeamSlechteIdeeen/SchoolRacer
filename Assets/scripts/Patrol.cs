@@ -7,21 +7,22 @@ public class Patrol : MonoBehaviour
     public Transform[] wayPointList;
     public Transform[] wayPointList2;
 
-    public int ResetAfter = 0;
     public float MaxOffset = 0.1f;
+    public float NPCVel = 0f;
+    public float speed = 6;
+    public int ResetAfter = 0;
     public int currentWayPoint = 0;
     public int currentWayPoint2 = 0;
     public bool ready;
 
     private int randlist = 0;
-    private float offset = 0;
+    //private float offset = 0;
 
     Transform targetWayPoint;
 
     public Rigidbody rb;
 
     int randomvar;
-    float speed;
     // Use this for initialization
     void Start()
     {
@@ -43,7 +44,7 @@ public class Patrol : MonoBehaviour
                     targetWayPoint = wayPointList[currentWayPoint];
                 } else
                 {
-                    targetWayPoint = wayPointList[currentWayPoint2];
+                    targetWayPoint = wayPointList[currentWayPoint];
                 }
                 
             walk();
@@ -55,9 +56,14 @@ public class Patrol : MonoBehaviour
         if (ready == true)
         {
             //base the speed of the NPC vehicles on a random float between 6.5 and 7, to avoid "waypoint fighting"
-            randomvar = Random.Range(60, 70);
-            speed = randomvar / 10;
+            //randomvar = Random.Range(60, 70);
+            //speed = randomvar / 10;
             // rotate towards the target
+
+            var locVel = transform.InverseTransformDirection(rb.velocity);
+            locVel.z = NPCVel;
+            rb.velocity = transform.TransformDirection(locVel);
+
             transform.forward = Vector3.RotateTowards(transform.forward, targetWayPoint.position - transform.position, speed * Time.deltaTime, 0.0f);
 
             // move towards the target
