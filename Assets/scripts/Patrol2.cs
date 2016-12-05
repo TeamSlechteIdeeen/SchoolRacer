@@ -13,7 +13,7 @@ public class Patrol2 : MonoBehaviour
     public bool ready;
 
     private int randlist = 0;
-    private float offset = 0;
+    //private float offset = 0;
 
     Transform targetWayPoint;
 

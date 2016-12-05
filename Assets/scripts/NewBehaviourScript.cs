@@ -25,8 +25,8 @@ public class NewBehaviourScript : MonoBehaviour
     private int round = 0;
     private int finish = -1;
     private int checkpoint = 0;
-    private int TimeRnd = 0;
-    private float countdown = 0f;
+    //private int TimeRnd = 0;
+    //private float countdown = 0f;
     private float min = 0;
     private float sec = 0;
     private bool runshit;
