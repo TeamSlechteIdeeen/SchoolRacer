@@ -8,7 +8,7 @@ public class NPCLapCounter : MonoBehaviour
     public int currentTrack = 0;
     public int ResetAfterTrack = 0;
     GameObject Track;
-    public int trackCounterTotal = 0;
+    public int trackCounterTotal;
 
     private int trackCounter = 0;
     //public AudioClip yay;

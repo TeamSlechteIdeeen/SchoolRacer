@@ -128,8 +128,49 @@ public class NewBehaviourScript : MonoBehaviour
             if (col.gameObject.name == Track.name)
             {
                 Debug.Log("Booped track with name " + Track.name);
-                trackCounter++;
-                rank();
+                PlayerTrackCounter++;
+                NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
+                NPC2TrackCounter = npc2.GetComponent<NPCLapCounter>().trackCounterTotal;
+                NPC3TrackCounter = npc3.GetComponent<NPCLapCounter>().trackCounterTotal;
+                NPC4TrackCounter = npc4.GetComponent<NPCLapCounter>().trackCounterTotal;
+                PlayerPos = 0;
+                if (PlayerTrackCounter > NPC1TrackCounter)
+                {
+                    PlayerPos = PlayerPos - 1;
+                }
+                else
+                {
+                    PlayerPos = PlayerPos + 1;
+                }
+                if (PlayerTrackCounter > NPC2TrackCounter)
+                {
+                    PlayerPos = PlayerPos - 1;
+                }
+                else
+                {
+                    PlayerPos = PlayerPos + 1;
+                }
+                if (PlayerTrackCounter > NPC3TrackCounter)
+                {
+                    PlayerPos = PlayerPos - 1;
+                }
+                else
+                {
+                    PlayerPos = PlayerPos + 1;
+                }
+                if (PlayerTrackCounter > NPC4TrackCounter)
+                {
+                    PlayerPos = PlayerPos - 1;
+                }
+                else
+                {
+                    PlayerPos = PlayerPos + 1;
+                }
+                Debug.Log("Player: " + PlayerTrackCounter);
+                Debug.Log("NPC 1: " + NPC1TrackCounter);
+                Debug.Log("NPC 2: " + NPC2TrackCounter);
+                Debug.Log("NPC 3: " + NPC3TrackCounter);
+                Debug.Log("NPC 4: " + NPC4TrackCounter);
             }
         }
         /*if (col.gameObject.name == "finish")
@@ -175,47 +216,5 @@ public class NewBehaviourScript : MonoBehaviour
         //Debug.Log(checkpoint);
         //Debug.Log(finish);
         winText.text = str;
-    }
-
-    void rank()
-    {
-        NPC1TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
-        NPC2TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
-        NPC3TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
-        NPC4TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
-        PlayerPos = 0;
-        if (PlayerTrackCounter > NPC1TrackCounter)
-        {
-            PlayerPos = PlayerPos - 1;
-        }
-        else
-        {
-            PlayerPos = PlayerPos + 1;
-        }
-        if (PlayerTrackCounter > NPC2TrackCounter)
-        {
-            PlayerPos = PlayerPos - 1;
-        }
-        else
-        {
-            PlayerPos = PlayerPos + 1;
-        }
-        if (PlayerTrackCounter > NPC3TrackCounter)
-        {
-            PlayerPos = PlayerPos - 1;
-        }
-        else
-        {
-            PlayerPos = PlayerPos + 1;
-        }
-        if (PlayerTrackCounter > NPC4TrackCounter)
-        {
-            PlayerPos = PlayerPos - 1;
-        }
-        else
-        {
-            PlayerPos = PlayerPos + 1;
-        }
-        Debug.Log("player pos: " + PlayerPos);
     }
 }
