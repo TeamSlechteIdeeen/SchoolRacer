@@ -16,7 +16,12 @@ public class Patrol : MonoBehaviour
     public bool ready;
 
     private int randlist = 0;
-    //private float offset = 0;
+    private float offset = 0;
+    private float Xrand;
+    private float Yrand;
+    private float Zrand;
+    private Vector3 randlocation;
+    private float speedvar;
 
     Transform targetWayPoint;
 
@@ -26,6 +31,7 @@ public class Patrol : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        offset = Random.Range(-1.0f, 1.0f);
         randomvar = Random.Range(60, 70);
         speed = randomvar / 10;
         rb = GetComponent<Rigidbody>();
@@ -34,6 +40,7 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         randlist = Random.Range(1, 2);
         // check if we have somewere to walk
         if (currentWayPoint < this.wayPointList.Length)
@@ -62,13 +69,20 @@ public class Patrol : MonoBehaviour
 
             var locVel = transform.InverseTransformDirection(rb.velocity);
             locVel.z = NPCVel;
-            rb.velocity = transform.TransformDirection(locVel);
+            //rb.velocity = transform.TransformDirection(locVel);
 
-            transform.forward = Vector3.RotateTowards(transform.forward, targetWayPoint.position - transform.position, speed * Time.deltaTime, 0.0f);
+            speedvar = Random.Range(0.8f, 1.3f);
+            Xrand = targetWayPoint.position.x + offset;
+            Yrand = targetWayPoint.position.y;
+            Zrand = targetWayPoint.position.z + offset;
+            randlocation = new Vector3(Xrand, Yrand, Zrand);
 
-            // move towards the target
-            transform.position = Vector3.MoveTowards(transform.position, targetWayPoint.position, speed * Time.deltaTime);
+            //transform.forward = Vector3.RotateTowards(transform.forward, randlocation - transform.position, (speed * speedvar) * Time.deltaTime, 0.0f);
+            //transform.position = Vector3.MoveTowards(transform.position, randlocation, (speed * speedvar) * Time.deltaTime);
 
+            transform.forward = Vector3.RotateTowards(transform.forward, targetWayPoint.position - transform.position, (speed * speedvar) * Time.deltaTime, 0.0f);
+            transform.position = Vector3.MoveTowards(transform.position, targetWayPoint.position, (speed * speedvar) * Time.deltaTime);
+            //Debug.Log();
 
             if (transform.position == targetWayPoint.position)
             {

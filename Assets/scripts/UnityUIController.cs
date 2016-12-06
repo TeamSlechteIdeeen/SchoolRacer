@@ -29,7 +29,7 @@ public class UnityUIController : MonoBehaviour
         {
             var locVel = transform.InverseTransformDirection(rb.velocity);
             //locVel.z = forwardSpeed;
-            locVel.z = forwardSpeed * 0.25f; //werdt meer velocity powered race dan wat anders xd
+            locVel.z = forwardSpeed * 0.1f; //werdt meer velocity powered race dan wat anders xd
             rb.velocity = transform.TransformDirection(locVel);
             rb.MovePosition(transform.position + transform.forward * Time.deltaTime * forwardSpeed);
         }

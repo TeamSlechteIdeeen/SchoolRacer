@@ -12,7 +12,7 @@ public class Patrol2 : MonoBehaviour
     public int currentWayPoint2 = 0;
     public bool ready;
 
-    private int randlist = 0;
+    //private int randlist = 0;
     //private float offset = 0;
 
     Transform targetWayPoint;
@@ -32,7 +32,7 @@ public class Patrol2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randlist = Random.Range(1, 2);
+        //randlist = Random.Range(1, 2);
         // check if we have somewere to walk
         if (currentWayPoint < this.wayPointList.Length)
         {

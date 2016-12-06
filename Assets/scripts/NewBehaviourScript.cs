@@ -4,6 +4,11 @@ using System.Collections;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    public GameObject[] TrackList;
+    public int currentTrack = 0;
+    public int ResetAfterTrack = 0;
+    GameObject Track;
+
     public float Lap = 1f;
     public float AmountOfLaps = 3f;
     public AudioSource Music;
@@ -13,8 +18,10 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject npc3;
     public GameObject npc4;
     public GameObject koos;
-
-
+    public int MaxSections;
+    
+    public int trackCounterTotal = 0;
+    private int trackCounter = 0;
     public Text winText;
     public Text TimerTxt;
     public Text CountdownTxt;
@@ -27,9 +34,15 @@ public class NewBehaviourScript : MonoBehaviour
     private int checkpoint = 0;
     //private int TimeRnd = 0;
     //private float countdown = 0f;
-    private float min = 0;
-    private float sec = 0;
+    //private float min = 0;
+    //private float sec = 0;
     private bool runshit;
+    private float PlayerTrackCounter;
+    private float NPC1TrackCounter;
+    private float NPC2TrackCounter;
+    private float NPC3TrackCounter;
+    private float NPC4TrackCounter;
+    private int PlayerPos = 0;
 
     private string str = "";
 
@@ -43,6 +56,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        MaxSections = this.TrackList.Length;
         //source = GetComponent<AudioSource>();
         winText.text = "Lap 1/3";
         TimerTxt.text = "";
@@ -68,8 +82,8 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
-        min = (Timer / 60f);
-        sec = (Timer % 60f);
+        //min = (Timer / 60f);
+        //sec = (Timer % 60f);
 
         if (runshit == true)
         {
@@ -100,7 +114,25 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name == "finish")
+        if (currentTrack < this.TrackList.Length)
+        {
+            if (Track == null)
+                Track = TrackList[currentTrack];
+            if(currentTrack == ResetAfterTrack)
+            {
+                currentTrack = 0;
+            } else
+            {
+                currentTrack++;
+            }
+            if (col.gameObject.name == Track.name)
+            {
+                Debug.Log("Booped track with name " + Track.name);
+                trackCounter++;
+                rank();
+            }
+        }
+        /*if (col.gameObject.name == "finish")
         {
             Debug.Log("booped da finish");
             finish++;
@@ -109,6 +141,12 @@ public class NewBehaviourScript : MonoBehaviour
         {
             Debug.Log("booped da shagpoint");
             checkpoint++;
+        }*/
+        if(trackCounter == this.TrackList.Length)
+        {
+            round++;
+            trackCounter = 1;
+            Debug.Log("the new round number is " + round);
         }
         if (col.gameObject.name == "villainPoint")
         {
@@ -117,29 +155,67 @@ public class NewBehaviourScript : MonoBehaviour
             koos.GetComponent<VillainSoundFX>().start = true;
 
         }
-        if (finish == checkpoint)
+        if(round > 2)
         {
-            round = finish;
-            if(round > 2)
-            {
-                str = "";
-                TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
-                runshit = false;
-                player.GetComponent<UnityUIController>().ready = false;
-                npc1.GetComponent<Patrol>().ready = false;
-                npc2.GetComponent<Patrol>().ready = false;
-                npc3.GetComponent<Patrol>().ready = false;
-                npc4.GetComponent<Patrol>().ready = false;
-                //TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
-                //Debug.Log(Timer);
-            } else
-            {
-                str = "Lap " + (round + 1) + "/3";
-                TimerTxt.text = "";
-            }
-            //Debug.Log(checkpoint);
-            //Debug.Log(finish);
+            str = "";
+            TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
+            runshit = false;
+            player.GetComponent<UnityUIController>().ready = false;
+            npc1.GetComponent<Patrol>().ready = false;
+            npc2.GetComponent<Patrol>().ready = false;
+            npc3.GetComponent<Patrol>().ready = false;
+            npc4.GetComponent<Patrol>().ready = false;
+            //TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
+            //Debug.Log(Timer);
+        } else
+        {
+            str = "Lap " + (round + 1) + "/3";
+            TimerTxt.text = "";
         }
+        //Debug.Log(checkpoint);
+        //Debug.Log(finish);
         winText.text = str;
+    }
+
+    void rank()
+    {
+        NPC1TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
+        NPC2TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
+        NPC3TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
+        NPC4TrackCounter = player.GetComponent<NewBehaviourScript>().trackCounterTotal;
+        PlayerPos = 0;
+        if (PlayerTrackCounter > NPC1TrackCounter)
+        {
+            PlayerPos = PlayerPos - 1;
+        }
+        else
+        {
+            PlayerPos = PlayerPos + 1;
+        }
+        if (PlayerTrackCounter > NPC2TrackCounter)
+        {
+            PlayerPos = PlayerPos - 1;
+        }
+        else
+        {
+            PlayerPos = PlayerPos + 1;
+        }
+        if (PlayerTrackCounter > NPC3TrackCounter)
+        {
+            PlayerPos = PlayerPos - 1;
+        }
+        else
+        {
+            PlayerPos = PlayerPos + 1;
+        }
+        if (PlayerTrackCounter > NPC4TrackCounter)
+        {
+            PlayerPos = PlayerPos - 1;
+        }
+        else
+        {
+            PlayerPos = PlayerPos + 1;
+        }
+        Debug.Log("player pos: " + PlayerPos);
     }
 }

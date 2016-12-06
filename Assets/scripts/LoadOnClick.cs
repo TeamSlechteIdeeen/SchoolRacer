@@ -15,8 +15,9 @@ public class LoadOnClick : MonoBehaviour {
     {
         //loadingImage.SetActive(true);
         //Application.UnloadLevel(1);
-        Application.LoadLevel(level);
-        Application.LoadLevel("MusicScene");
-        //SceneManager.LoadScene(level);
+
+        //Application.LoadLevel(int) is deprecated
+        //Application.LoadLevel(level);
+        SceneManager.LoadScene(level);
     }
 }
