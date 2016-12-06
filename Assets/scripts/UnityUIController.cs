@@ -22,7 +22,7 @@ public class UnityUIController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         //if (walkUp == true && ready == true) waarom dit zo staat weet ik niet maar het werkt dus STFU
         if (walkUp == true && ready == true)
@@ -30,8 +30,10 @@ public class UnityUIController : MonoBehaviour
             var locVel = transform.InverseTransformDirection(rb.velocity);
             //locVel.z = forwardSpeed;
             locVel.z = forwardSpeed * 0.1f; //werdt meer velocity powered race dan wat anders xd
-            rb.velocity = transform.TransformDirection(locVel);
-            rb.MovePosition(transform.position + transform.forward * Time.deltaTime * forwardSpeed);
+            //rb.velocity = transform.TransformDirection(locVel);
+            //rb.MovePosition(transform.position + transform.forward * Time.deltaTime * forwardSpeed * 10000000);
+            //rb.MovePosition(transform.position + transform.forward * (1000000000000 * 10000000000000));
+            rb.AddForce(transform.forward * forwardSpeed);
         }
         else if (walkDown == true && ready == true)
         {
@@ -43,7 +45,8 @@ public class UnityUIController : MonoBehaviour
         if (ready == true)
         {
             float v = Input.GetAxis("Vertical");
-            rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5);
+            //rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5);
+            rb.AddForce(transform.forward * forwardSpeed * v);
         }
     }
     public void PlayerWalkUp(int value)

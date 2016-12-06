@@ -4,7 +4,6 @@ using System.Collections;
 
 public class NPCLapCounter : MonoBehaviour
 {
-    public GameObject[] TrackList;
     public int currentTrack = 0;
     public int ResetAfterTrack = 0;
     GameObject Track;
@@ -16,6 +15,8 @@ public class NPCLapCounter : MonoBehaviour
 
     private int round = 0;
 
+    private int randomvar;
+
     //public EngineAudioOptions engineSoundStyle = EngineAudioOptions.FourChannel;// Set the default audio options to be four channel
     // Use this for initialization
     void Start()
@@ -25,34 +26,27 @@ public class NPCLapCounter : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (currentTrack < this.TrackList.Length)
-        {
-            if (Track == null)
-                Track = TrackList[currentTrack];
+        //for (currentTrack = 0; currentTrack < this.TrackList.Length; randomvar++)
+        //{
             if (currentTrack == ResetAfterTrack)
             {
                 currentTrack = 0;
             }
-            else
+
+            if (col.gameObject.name == "col" + (currentTrack + 1))
             {
+                //Debug.Log("did some stuff to ur mom with an " + Track.name);
+                //Debug.Log("got hit on the head with an " + col.gameObject.name);
                 currentTrack++;
-            }
-            if (col.gameObject.name == Track.name)
-            {
-                Debug.Log("nagged da track with name " + Track.name);
                 trackCounter++;
                 trackCounterTotal++;
             }
-            if (col.gameObject.name != Track.name)
+            /*if (trackCounter > (this.TrackList.Length - 1))
             {
-                //Debug.Log(col.gameObject.name + "did not hit " + Track.name);
-            }
-        }
-        if (trackCounter > (this.TrackList.Length - 1))
-        {
-            round++;
-            trackCounter = 1;
-            Debug.Log("the new round number is " + round);
-        }
+                round++;
+                trackCounter = 1;
+                Debug.Log("the new round number is " + round);
+            }*/
+        //}
     }
 }

@@ -25,6 +25,7 @@ public class NewBehaviourScript : MonoBehaviour
     public Text winText;
     public Text TimerTxt;
     public Text CountdownTxt;
+    public Text RankTxt;
     //public AudioClip yay;
     //private AudioSource source;
 
@@ -42,7 +43,7 @@ public class NewBehaviourScript : MonoBehaviour
     private float NPC2TrackCounter;
     private float NPC3TrackCounter;
     private float NPC4TrackCounter;
-    private int PlayerPos = 0;
+    private float PlayerPos = 0.0f;
 
     private string str = "";
 
@@ -114,65 +115,58 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (currentTrack < this.TrackList.Length)
+
+        if (currentTrack == ResetAfterTrack)
         {
-            if (Track == null)
-                Track = TrackList[currentTrack];
-            if(currentTrack == ResetAfterTrack)
+            currentTrack = 0;
+        }
+            if (col.gameObject.name == "col" + (currentTrack + 1))
             {
-                currentTrack = 0;
-            } else
-            {
-                currentTrack++;
-            }
-            if (col.gameObject.name == Track.name)
-            {
-                Debug.Log("Booped track with name " + Track.name);
+            Debug.Log("BOOP! on col" + (currentTrack + 1));
+                currentTrack++;                //Debug.Log("Booped track with name " + Track.name);
                 PlayerTrackCounter++;
                 NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
                 NPC2TrackCounter = npc2.GetComponent<NPCLapCounter>().trackCounterTotal;
                 NPC3TrackCounter = npc3.GetComponent<NPCLapCounter>().trackCounterTotal;
                 NPC4TrackCounter = npc4.GetComponent<NPCLapCounter>().trackCounterTotal;
-                PlayerPos = 0;
+                PlayerPos = 5;
                 if (PlayerTrackCounter > NPC1TrackCounter)
                 {
-                    PlayerPos = PlayerPos - 1;
+                    PlayerPos = PlayerPos - 0.5f;
                 }
                 else
                 {
-                    PlayerPos = PlayerPos + 1;
+                    PlayerPos = PlayerPos + 0.5f;
                 }
                 if (PlayerTrackCounter > NPC2TrackCounter)
                 {
-                    PlayerPos = PlayerPos - 1;
+                    PlayerPos = PlayerPos - 0.5f;
                 }
                 else
                 {
-                    PlayerPos = PlayerPos + 1;
+                    PlayerPos = PlayerPos + 0.5f;
                 }
                 if (PlayerTrackCounter > NPC3TrackCounter)
                 {
-                    PlayerPos = PlayerPos - 1;
+                    PlayerPos = PlayerPos - 0.5f;
                 }
                 else
                 {
-                    PlayerPos = PlayerPos + 1;
+                    PlayerPos = PlayerPos + 0.5f;
                 }
                 if (PlayerTrackCounter > NPC4TrackCounter)
                 {
-                    PlayerPos = PlayerPos - 1;
+                    PlayerPos = PlayerPos - 0.5f;
                 }
                 else
                 {
-                    PlayerPos = PlayerPos + 1;
+                    PlayerPos = PlayerPos + 0.5f;
                 }
-                Debug.Log("Player: " + PlayerTrackCounter);
-                Debug.Log("NPC 1: " + NPC1TrackCounter);
-                Debug.Log("NPC 2: " + NPC2TrackCounter);
-                Debug.Log("NPC 3: " + NPC3TrackCounter);
-                Debug.Log("NPC 4: " + NPC4TrackCounter);
+            PlayerPos = PlayerPos - 2;
+                UpdateStat();
+                Debug.Log("player position: " + PlayerPos);
             }
-        }
+        
         /*if (col.gameObject.name == "finish")
         {
             Debug.Log("booped da finish");
@@ -216,5 +210,28 @@ public class NewBehaviourScript : MonoBehaviour
         //Debug.Log(checkpoint);
         //Debug.Log(finish);
         winText.text = str;
+    }
+    void UpdateStat()
+    {
+        if(PlayerPos == 1)
+        {
+            RankTxt.text = "1st";
+            RankTxt.color = new Color(255,255,0,1);
+        }
+        if (PlayerPos == 2)
+        {
+            RankTxt.text = "2nd";
+            RankTxt.color = new Color(179, 179, 179, 1);
+        }
+        if (PlayerPos == 3)
+        {
+            RankTxt.text = "3rd";
+            RankTxt.color = new Color(153, 0, 0, 1);
+        }
+        if (PlayerPos > 3)
+        {
+            RankTxt.text = PlayerPos + "th";
+            RankTxt.color = new Color(255, 153, 51, 1);
+        }
     }
 }

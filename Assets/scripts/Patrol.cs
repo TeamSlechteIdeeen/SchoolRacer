@@ -8,7 +8,7 @@ public class Patrol : MonoBehaviour
     public Transform[] wayPointList2;
 
     public float MaxOffset = 0.1f;
-    public float NPCVel = 0f;
+    public float NPCForce = 0f;
     public float speed = 6;
     public int ResetAfter = 0;
     public int currentWayPoint = 0;
@@ -67,9 +67,11 @@ public class Patrol : MonoBehaviour
             //speed = randomvar / 10;
             // rotate towards the target
 
-            var locVel = transform.InverseTransformDirection(rb.velocity);
-            locVel.z = NPCVel;
+            //var locVel = transform.InverseTransformDirection(rb.velocity);
+            //locVel.z = NPCVel;
             //rb.velocity = transform.TransformDirection(locVel);
+
+            rb.AddForce(transform.forward * NPCForce);
 
             speedvar = Random.Range(0.8f, 1.3f);
             Xrand = targetWayPoint.position.x + offset;
