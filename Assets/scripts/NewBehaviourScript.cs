@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour
     //private AudioSource source;
 
     private float Timer = 0f;
-    private int round = -1;
+    public float round = -2.0f;
     private int finish = -1;
     private int checkpoint = 0;
     //private int TimeRnd = 0;
@@ -44,6 +44,7 @@ public class NewBehaviourScript : MonoBehaviour
     private float NPC3TrackCounter;
     private float NPC4TrackCounter;
     private float PlayerPos = 0.0f;
+    private bool checkround;
 
     private string str = "";
 
@@ -57,6 +58,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        checkround = true;
         MaxSections = this.TrackList.Length;
         //source = GetComponent<AudioSource>();
         winText.text = "Lap 1/3";
@@ -67,6 +69,7 @@ public class NewBehaviourScript : MonoBehaviour
         Music.Play();
         runshit = true;
 
+        //lock the controls of the players and NPC's
         player.GetComponent<UnityUIController>().ready = false;
         npc1.GetComponent<Patrol>().ready = false;
         npc2.GetComponent<Patrol>().ready = false;
@@ -74,15 +77,13 @@ public class NewBehaviourScript : MonoBehaviour
         npc4.GetComponent<Patrol>().ready = false;
         koos.GetComponent<Patrol2>().ready = false;
         koos.GetComponent<VillainSoundFX>().start = false;
-
-
-        // accesses the bool named "isOnFire" and changed it's value.
-        //boolBoy.ready = false;
     }
 
     void Update()
     {
         Timer += Time.deltaTime;
+
+        //might be useful to calculate minutes and seconds. not used right now
         //min = (Timer / 60f);
         //sec = (Timer % 60f);
 
@@ -90,7 +91,10 @@ public class NewBehaviourScript : MonoBehaviour
         {
             if (Timer > 3 || Timer < 10)
             {
+                //remove countdown text
                 CountdownTxt.text = "";
+
+                //unlock the controls
                 player.GetComponent<UnityUIController>().ready = true;
                 npc1.GetComponent<Patrol>().ready = true;
                 npc2.GetComponent<Patrol>().ready = true;
@@ -101,13 +105,13 @@ public class NewBehaviourScript : MonoBehaviour
             {
                 if (Timer < 4)
                 {
+                    //because computers are austistic twats, tell it to lock the controls AGAIN!
                     CountdownTxt.text = "" + (4 - Mathf.Round(Timer));
                     player.GetComponent<UnityUIController>().ready = false;
                     npc1.GetComponent<Patrol>().ready = false;
                     npc2.GetComponent<Patrol>().ready = false;
                     npc3.GetComponent<Patrol>().ready = false;
                     npc4.GetComponent<Patrol>().ready = false;
-                    Debug.Log("nope");
                 }
             }
         }
@@ -115,19 +119,25 @@ public class NewBehaviourScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-
         if (currentTrack == ResetAfterTrack)
         {
+            //set the checkround boolean to true, to prove the whole track has been done
+            checkround = true;
             currentTrack = 1;
-            Debug.Log("the new round number is " + round);
-            round++;
+
         }
-            
-            if (col.gameObject.name == "col" + (currentTrack + 1))
+        if (col.gameObject.name == "finish" && checkround == true)
+        {
+            round++;
+            Debug.Log("the new round number is " + round);
+            checkround = false;
+        }
+        
+        if (col.gameObject.name == "col" + (currentTrack + 1))
             {
             Debug.Log("BOOP! on col" + (currentTrack + 1));
             trackCounterTotal++;
-                currentTrack++;                //Debug.Log("Booped track with name " + Track.name);
+                currentTrack++;
                 PlayerTrackCounter++;
                 NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
                 NPC2TrackCounter = npc2.GetComponent<NPCLapCounter>().trackCounterTotal;
@@ -170,26 +180,8 @@ public class NewBehaviourScript : MonoBehaviour
                 UpdateStat();
                 Debug.Log("player position: " + PlayerPos);
             }
-        
-        /*if (col.gameObject.name == "finish")
-        {
-            Debug.Log("booped da finish");
-            finish++;
-        }
-        if (col.gameObject.name == "checkpoint1")
-        {
-            Debug.Log("booped da shagpoint");
-            checkpoint++;
-        }*/
-        if(trackCounter == ResetAfterTrack)
-        {
-            //round++;
-            //trackCounter = 1;
-            //Debug.Log("the new round number is " + round);
-        }
         if (col.gameObject.name == "villainPoint")
         {
-            //Debug.Log("booped da shagpoint");
             koos.GetComponent<Patrol2>().ready = true;
             koos.GetComponent<VillainSoundFX>().start = true;
 
@@ -204,15 +196,11 @@ public class NewBehaviourScript : MonoBehaviour
             npc2.GetComponent<Patrol>().ready = false;
             npc3.GetComponent<Patrol>().ready = false;
             npc4.GetComponent<Patrol>().ready = false;
-            //TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
-            //Debug.Log(Timer);
         } else
         {
             str = "Lap " + (round + 1) + "/3";
             TimerTxt.text = "";
         }
-        //Debug.Log(checkpoint);
-        //Debug.Log(finish);
         winText.text = str;
     }
     void UpdateStat()

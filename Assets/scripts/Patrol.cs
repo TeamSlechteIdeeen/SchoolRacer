@@ -74,7 +74,7 @@ public class Patrol : MonoBehaviour
 
             rb.AddForce(transform.forward * NPCForce);
 
-            speedvar = Random.Range(0.8f, 1.3f);
+            speedvar = Random.Range(0.1f, 2.0f);
             Xrand = targetWayPoint.position.x + offset;
             Yrand = targetWayPoint.position.y;
             Zrand = targetWayPoint.position.z + offset;
