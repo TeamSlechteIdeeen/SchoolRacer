@@ -40,20 +40,21 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         randlist = Random.Range(1, 2);
         // check if we have somewere to walk
         if (currentWayPoint < this.wayPointList.Length)
         {
             if (targetWayPoint == null)
-                if(randlist == 1)
-                {
-                    targetWayPoint = wayPointList[currentWayPoint];
-                } else
+                if (randlist == 1)
                 {
                     targetWayPoint = wayPointList[currentWayPoint];
                 }
-                
+                else
+                {
+                    targetWayPoint = wayPointList[currentWayPoint];
+                }
+
             walk();
         }
     }

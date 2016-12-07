@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour
     //private AudioSource source;
 
     private float Timer = 0f;
-    private int round = 0;
+    private int round = -1;
     private int finish = -1;
     private int checkpoint = 0;
     //private int TimeRnd = 0;
@@ -118,11 +118,15 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (currentTrack == ResetAfterTrack)
         {
-            currentTrack = 0;
+            currentTrack = 1;
+            Debug.Log("the new round number is " + round);
+            round++;
         }
+            
             if (col.gameObject.name == "col" + (currentTrack + 1))
             {
             Debug.Log("BOOP! on col" + (currentTrack + 1));
+            trackCounterTotal++;
                 currentTrack++;                //Debug.Log("Booped track with name " + Track.name);
                 PlayerTrackCounter++;
                 NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
@@ -177,11 +181,11 @@ public class NewBehaviourScript : MonoBehaviour
             Debug.Log("booped da shagpoint");
             checkpoint++;
         }*/
-        if(trackCounter == this.TrackList.Length)
+        if(trackCounter == ResetAfterTrack)
         {
-            round++;
-            trackCounter = 1;
-            Debug.Log("the new round number is " + round);
+            //round++;
+            //trackCounter = 1;
+            //Debug.Log("the new round number is " + round);
         }
         if (col.gameObject.name == "villainPoint")
         {
