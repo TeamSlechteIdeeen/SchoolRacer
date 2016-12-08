@@ -97,7 +97,7 @@ public class Patrol : MonoBehaviour
                 else
                 {
                     currentWayPoint++;
-                    Debug.Log("ahm at point numba " + currentWayPoint);
+                    //Debug.Log("ahm at point numba " + currentWayPoint);
                 }
                 targetWayPoint = wayPointList[currentWayPoint];
             }

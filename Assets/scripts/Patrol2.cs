@@ -12,13 +12,13 @@ public class Patrol2 : MonoBehaviour
     public int currentWayPoint2 = 0;
     public bool ready;
     public bool pause = false;
+    public Rigidbody rb;
+
 
     //private int randlist = 0;
     //private float offset = 0;
 
     Transform targetWayPoint;
-
-    public Rigidbody rb;
 
     int randomvar;
     float speed;
