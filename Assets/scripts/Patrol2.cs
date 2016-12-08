@@ -11,6 +11,7 @@ public class Patrol2 : MonoBehaviour
     public int currentWayPoint = 0;
     public int currentWayPoint2 = 0;
     public bool ready;
+    public bool pause = false;
 
     //private int randlist = 0;
     //private float offset = 0;
@@ -44,7 +45,7 @@ public class Patrol2 : MonoBehaviour
 
     void walk()
     {
-        if (ready == true)
+        if (ready == true && pause == false)
         {
             //base the speed of the NPC vehicles on a random float between 6.5 and 7, to avoid "waypoint fighting"
             randomvar = Random.Range(60, 70);
