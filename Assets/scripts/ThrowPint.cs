@@ -8,6 +8,8 @@ public class ThrowPint : MonoBehaviour {
     public GameObject EmptyPint;
     public Renderer EmptyPintRenderer;
     public Transform koos;
+    public Transform EmptyPintRotator;
+    public Transform EmptyPintPosition;
     public float TimeBetweenPintAnimation = 1;
 
     public bool anim = false;
@@ -16,6 +18,7 @@ public class ThrowPint : MonoBehaviour {
     private float timer;
     private float GlobalTimer;
     public bool allowPint = true;
+    public bool destroyTheGlass;
     public float TimeBetweenPints = 10;
     private float pintSpawnTimer;
     private Vector3 KegRotation;
@@ -40,7 +43,7 @@ public class ThrowPint : MonoBehaviour {
         {
             anim = true;
             timer += Time.deltaTime;
-            Debug.Log(timer);
+            //Debug.Log(timer);
             if (timer < TimeBetweenPintAnimation)
             {
                 Debug.Log("The glass is full");
@@ -55,16 +58,16 @@ public class ThrowPint : MonoBehaviour {
                 HalfFullPint.SetActive(true);
                 EmptyPintRenderer.enabled = false;
             }
-            if (timer > (TimeBetweenPintAnimation * 2))
+            if (timer > (TimeBetweenPintAnimation * 3))
             {
                 FullPint.SetActive(false);
                 HalfFullPint.SetActive(false);
-                EmptyPintRenderer.enabled = true;
+                //EmptyPintRenderer.enabled = true;
             }
             if (timer > (TimeBetweenPintAnimation * 3))
             {
                 Debug.Log("The glass is empty");
-                allowPint = false;
+                //  allowPint = false;
                 fire();
                 EmptyPintRenderer.enabled = true;
                 anim = false;
@@ -76,17 +79,27 @@ public class ThrowPint : MonoBehaviour {
 
     void fire()
     {
-        KegRotation = new Vector3(0, 00, 0);
+        KegRotation = new Vector3(0, 0, 0);
         var bullet = (GameObject)Instantiate(
            EmptyPint,
-           koos.position,
-           koos.rotation);
-
+           EmptyPintPosition.position,
+           EmptyPintRotator.rotation);
+        bullet.tag = "LiterBierJah";
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
+        //bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
+        var locVel = transform.InverseTransformDirection(bullet.GetComponent<Rigidbody>().velocity);
+        //locVel.z = forwardSpeed;
+        locVel.z = 80 * 0.12f;
+        bullet.GetComponent<Rigidbody>().velocity = transform.TransformDirection(locVel);
 
         // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
+        if (destroyTheGlass == true)
+        {
+            Destroy(bullet);
+            destroyTheGlass = false;
+        }
+        Destroy(bullet, 5.0f);
+
     }
 
     void OnTriggerEnter(Collider col)
