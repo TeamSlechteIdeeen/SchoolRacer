@@ -4,6 +4,7 @@ using System.Collections;
 public class UnityUIController : MonoBehaviour
 {
     public float speed = 10.0f;
+    public GameObject glass;
     private bool walkUp;
     //private bool walkLeft;
     //private bool walkRight;
@@ -25,35 +26,46 @@ public class UnityUIController : MonoBehaviour
 
     public void FixedUpdate()
     {
+
         //if (walkUp == true && ready == true) waarom dit zo staat weet ik niet maar het werkt dus STFU
-        if (walkUp == true && ready == true && pause == false)
+        if (walkUp == true && ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
         {
+            
             if (pause == false)
             {
+                Debug.Log("button forward true");
+                float v = 28;
                 var locVel = transform.InverseTransformDirection(rb.velocity);
                 //locVel.z = forwardSpeed;
-                locVel.z = forwardSpeed * 0.1f; //werdt meer velocity powered race dan wat anders xd
-                //rb.velocity = transform.TransformDirection(locVel);
-                //rb.MovePosition(transform.position + transform.forward * Time.deltaTime * forwardSpeed * 10000000);
-                //rb.MovePosition(transform.position + transform.forward * (1000000000000 * 10000000000000));
-                rb.AddForce(transform.forward * forwardSpeed);
+                locVel.z = forwardSpeed * 0.12f * v;
+                rb.velocity = transform.TransformDirection(locVel);
+                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
+                rb.AddForce(transform.forward * forwardSpeed * 22f * v);
             }
         }
-        else if (walkDown == true && ready == true)
+        else if (walkDown == true && ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
         {
             if (pause == false)
             {
+                float v = -25;
                 var locVel = transform.InverseTransformDirection(rb.velocity);
-                locVel.z = (backwardSpeed * -1);
+                //locVel.z = forwardSpeed;
+                locVel.z = forwardSpeed * 0.12f * v;
                 rb.velocity = transform.TransformDirection(locVel);
-                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * (backwardSpeed * -1));
+                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
+                rb.AddForce(transform.forward * forwardSpeed * 220f * v);
+                
             }
         }
-        if (ready == true)
+        if (ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
         {
             float v = Input.GetAxis("Vertical");
-            //rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 5);
-            rb.AddForce(transform.forward * forwardSpeed * v);
+            var locVel = transform.InverseTransformDirection(rb.velocity);
+            //locVel.z = forwardSpeed;
+            locVel.z = forwardSpeed * 0.12f * v;
+            rb.velocity = transform.TransformDirection(locVel);
+            rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
+            rb.AddForce(transform.forward * forwardSpeed * 22f * v);
         }
     }
     public void PlayerWalkUp(int value)
