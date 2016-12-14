@@ -28,7 +28,7 @@ public class UnityUIController : MonoBehaviour
     {
 
         //if (walkUp == true && ready == true) waarom dit zo staat weet ik niet maar het werkt dus STFU
-        if (walkUp == true && ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
+        if (walkUp == true && ready == true && pause == false)
         {
             
             if (pause == false)
@@ -37,13 +37,13 @@ public class UnityUIController : MonoBehaviour
                 float v = 28;
                 var locVel = transform.InverseTransformDirection(rb.velocity);
                 //locVel.z = forwardSpeed;
-                locVel.z = forwardSpeed * 0.12f * v;
+                locVel.z = forwardSpeed * 0.08f * v;
                 rb.velocity = transform.TransformDirection(locVel);
                 rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
-                rb.AddForce(transform.forward * forwardSpeed * 22f * v);
+                rb.AddForce(transform.forward * forwardSpeed * 3f * v);
             }
         }
-        else if (walkDown == true && ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
+        else if (walkDown == true && ready == true && pause == false)
         {
             if (pause == false)
             {
@@ -57,7 +57,7 @@ public class UnityUIController : MonoBehaviour
                 
             }
         }
-        if (ready == true && pause == false && glass.GetComponent<DestroyGlass>().GlassLock == false)
+        if (ready == true && pause == false)
         {
             float v = Input.GetAxis("Vertical");
             var locVel = transform.InverseTransformDirection(rb.velocity);
