@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.Advertisement;
 using System.Collections;
 
 public class NewBehaviourScript : MonoBehaviour
@@ -190,6 +191,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             str = "";
             TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
+
             runshit = false;
             player.GetComponent<UnityUIController>().ready = false;
             npc1.GetComponent<Patrol>().ready = false;
@@ -226,4 +228,11 @@ public class NewBehaviourScript : MonoBehaviour
             RankTxt.color = new Color(255, 153, 51, 1);
         }
     }
-}
+        public void ShowAd()
+        {
+            //if (Advertisement.IsReady())
+            {
+                //Advertisement.Show();
+            }
+        }
+    }
