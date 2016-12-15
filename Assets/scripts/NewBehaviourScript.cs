@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//using UnityEngine.Advertisement;
 using System.Collections;
 
 public class NewBehaviourScript : MonoBehaviour
@@ -19,6 +18,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject npc3;
     public GameObject npc4;
     public GameObject koos;
+    public GameObject AdTrigger;
     public int MaxSections;
     
     public int trackCounterTotal = 0;
@@ -198,6 +198,7 @@ public class NewBehaviourScript : MonoBehaviour
             npc2.GetComponent<Patrol>().ready = false;
             npc3.GetComponent<Patrol>().ready = false;
             npc4.GetComponent<Patrol>().ready = false;
+            AdTrigger.GetComponent<Adtrigger>().ShowAd = true;
         } else
         {
             str = "Lap " + (round + 1) + "/3";
