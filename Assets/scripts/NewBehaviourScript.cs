@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Advertisements; // Using the Unity Ads namespace.
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject npc3;
     public GameObject npc4;
     public GameObject koos;
-    public GameObject AdTrigger;
     public int MaxSections;
     
     public int trackCounterTotal = 0;
@@ -198,7 +198,7 @@ public class NewBehaviourScript : MonoBehaviour
             npc2.GetComponent<Patrol>().ready = false;
             npc3.GetComponent<Patrol>().ready = false;
             npc4.GetComponent<Patrol>().ready = false;
-            AdTrigger.GetComponent<Adtrigger>().ShowAd = true;
+            StartCoroutine(ShowAdWhenReady());
         } else
         {
             str = "Lap " + (round + 1) + "/3";
@@ -229,11 +229,23 @@ public class NewBehaviourScript : MonoBehaviour
             RankTxt.color = new Color(255, 153, 51, 1);
         }
     }
-        public void ShowAd()
-        {
-            //if (Advertisement.IsReady())
-            {
-                //Advertisement.Show();
-            }
+    IEnumerator ShowAdWhenReady()
+    {
+#if !UNITY_ADS // If the Ads service is not enabled...
+        if (Advertisement.isSupported)
+        { // If runtime platform is supported...
+            Advertisement.Initialize(gameId, enableTestMode); // ...initialize.
         }
+#endif
+
+        // Wait until Unity Ads is initialized,
+        //  and the default ad placement is ready.
+        while (!Advertisement.isInitialized || !Advertisement.IsReady())
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        // Show the default ad placement.
+        Advertisement.Show();
     }
+}
