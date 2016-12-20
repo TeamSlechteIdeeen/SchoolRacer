@@ -46,6 +46,7 @@ public class NewBehaviourScript : MonoBehaviour
     private float NPC4TrackCounter;
     private float PlayerPos = 0.0f;
     private bool checkround;
+    private bool AdShown;
 
     private string str = "";
 
@@ -78,6 +79,7 @@ public class NewBehaviourScript : MonoBehaviour
         npc4.GetComponent<Patrol>().ready = false;
         koos.GetComponent<Patrol2>().ready = false;
         koos.GetComponent<VillainSoundFX>().start = false;
+        AdShown = false;
     }
 
     void Update()
@@ -198,7 +200,10 @@ public class NewBehaviourScript : MonoBehaviour
             npc2.GetComponent<Patrol>().ready = false;
             npc3.GetComponent<Patrol>().ready = false;
             npc4.GetComponent<Patrol>().ready = false;
-            StartCoroutine(ShowAdWhenReady());
+            if(AdShown == false)
+            {
+                StartCoroutine(ShowAdWhenReady());
+            }
         } else
         {
             str = "Lap " + (round + 1) + "/3";
@@ -242,10 +247,11 @@ public class NewBehaviourScript : MonoBehaviour
         //  and the default ad placement is ready.
         while (!Advertisement.isInitialized || !Advertisement.IsReady())
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
         }
 
         // Show the default ad placement.
         Advertisement.Show();
+        AdShown = true;
     }
 }

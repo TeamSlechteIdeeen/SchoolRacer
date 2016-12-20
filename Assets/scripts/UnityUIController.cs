@@ -37,24 +37,24 @@ public class UnityUIController : MonoBehaviour
                 float v = 28;
                 var locVel = transform.InverseTransformDirection(rb.velocity);
                 //locVel.z = forwardSpeed;
-                locVel.z = forwardSpeed * 0.08f * v;
-                rb.velocity = transform.TransformDirection(locVel);
-                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
-                rb.AddForce(transform.forward * forwardSpeed * 3f * v);
+                locVel.z = forwardSpeed * 0.01f * v;
+                //rb.velocity = transform.TransformDirection(locVel);
+                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 0.7f);
+                rb.AddForce(transform.forward * forwardSpeed * 2 * v);
             }
         }
         else if (walkDown == true && ready == true && pause == false)
         {
             if (pause == false)
             {
-                float v = -25;
+                float v = -22;
                 var locVel = transform.InverseTransformDirection(rb.velocity);
                 //locVel.z = forwardSpeed;
                 locVel.z = forwardSpeed * 0.12f * v;
-                rb.velocity = transform.TransformDirection(locVel);
-                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 1f);
-                rb.AddForce(transform.forward * forwardSpeed * 220f * v);
-                
+                //rb.velocity = transform.TransformDirection(locVel);
+                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * backwardSpeed * v * 0.7f);
+                rb.AddForce(transform.forward * forwardSpeed * 2 * v);
+
             }
         }
         if (ready == true && pause == false)
