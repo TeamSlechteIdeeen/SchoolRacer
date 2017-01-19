@@ -10,6 +10,7 @@ public class NewBehaviourScript : MonoBehaviour
     public int ResetAfterTrack = 0;
     GameObject Track;
 
+    private bool CountTimer = true;
     public float Lap = 1f;
     public float AmountOfLaps = 3f;
     public AudioSource Music;
@@ -27,10 +28,11 @@ public class NewBehaviourScript : MonoBehaviour
     public Text TimerTxt;
     public Text CountdownTxt;
     public Text RankTxt;
+    public bool ActivatePointSystem;
     //public AudioClip yay;
     //private AudioSource source;
 
-    private float Timer = 0f;
+    public float Timer = 0f;
     public float round = -2.0f;
     private int finish = -1;
     private int checkpoint = 0;
@@ -84,7 +86,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Update()
     {
-        Timer += Time.deltaTime;
+        if (CountTimer)
+        {
+            Timer += Time.deltaTime;
+        }
 
         //might be useful to calculate minutes and seconds. not used right now
         //min = (Timer / 60f);
@@ -193,7 +198,8 @@ public class NewBehaviourScript : MonoBehaviour
         {
             str = "";
             TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
-
+            CountTimer = false;
+            ActivatePointSystem = true;
             runshit = false;
             player.GetComponent<UnityUIController>().ready = false;
             npc1.GetComponent<Patrol>().ready = false;
@@ -206,6 +212,7 @@ public class NewBehaviourScript : MonoBehaviour
             }
         } else
         {
+            ActivatePointSystem = false;
             str = "Lap " + (round + 1) + "/3";
             TimerTxt.text = "";
         }

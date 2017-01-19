@@ -20,13 +20,13 @@ public class MoveTrainForward : MonoBehaviour
             Timer += Time.deltaTime;
             if(Timer < 10)
             {
-                TrainBuildup = Timer / 5;
+                TrainBuildup = Timer * 200;
             }
-            if(Timer > 4.9f)
+            if(Timer > 19.9f)
             {
-                TrainBuildup = 5;
+                TrainBuildup = 2000;
             }
-            rb.AddForce(transform.right * TrainBuildup);
+            rb.AddForce(transform.right * TrainBuildup * -100);
         }
         if (driveTrain == false)
         {

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Advertisements; // Using the Unity Ads namespace.
+
+//using UnityEngine.Advertisements; // Using the Unity Ads namespace.
 
 public class ShowAdOnStart : MonoBehaviour
 {
+/*
 #if !UNITY_ADS // If the Ads service is not enabled...
     public string gameId; // Set this value from the inspector.
     public bool enableTestMode = true;
@@ -28,4 +30,5 @@ public class ShowAdOnStart : MonoBehaviour
         // Show the default ad placement.
         Advertisement.Show();
     }
+    */
 }
