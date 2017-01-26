@@ -6,6 +6,8 @@ public class ThrowPint : MonoBehaviour {
     public GameObject FullPint;
     public GameObject HalfFullPint;
     public GameObject EmptyPint;
+    public Rigidbody EmptyPintRig;
+    public Transform barrelEnd;
     public Renderer EmptyPintRenderer;
     public Transform koos;
     public Transform EmptyPintRotator;
@@ -79,6 +81,7 @@ public class ThrowPint : MonoBehaviour {
 
     void fire()
     {
+        /*
         KegRotation = new Vector3(0, 0, 0);
         var bullet = (GameObject)Instantiate(
            EmptyPint,
@@ -92,6 +95,12 @@ public class ThrowPint : MonoBehaviour {
         locVel.z = 80 * 0.12f;
         bullet.GetComponent<Rigidbody>().velocity = transform.TransformDirection(locVel);
 
+        */
+        Rigidbody bullet;
+
+        bullet = Instantiate(EmptyPintRig, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
+        bullet.AddForce(barrelEnd.up * 800);
+        bullet.tag = "LiterBierJah";
         // Destroy the bullet after 2 seconds
         if (destroyTheGlass == true)
         {
