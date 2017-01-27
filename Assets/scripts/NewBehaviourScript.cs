@@ -21,6 +21,9 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject npc4;
     public GameObject koos;
     public int MaxSections;
+    public int TotalHealth = 100;
+    public int HealthDropAmount = 10;
+    public bool HealthDrop;
     
     public int trackCounterTotal = 0;
     private int trackCounter = 0;
@@ -28,6 +31,7 @@ public class NewBehaviourScript : MonoBehaviour
     public Text TimerTxt;
     public Text CountdownTxt;
     public Text RankTxt;
+    public Text HealthText;
     public bool ActivatePointSystem;
     //public AudioClip yay;
     //private AudioSource source;
@@ -72,7 +76,7 @@ public class NewBehaviourScript : MonoBehaviour
         Debug.Log("kek");
         Music.Play();
         runshit = true;
-
+        HealthText.text = "ur health is 100% m8";
         //lock the controls of the players and NPC's
         player.GetComponent<UnityUIController>().ready = false;
         npc1.GetComponent<Patrol>().ready = false;
@@ -86,6 +90,19 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Update()
     {
+        if(HealthDrop)
+        {
+            if (TotalHealth > 0)
+            {
+                TotalHealth = TotalHealth - HealthDropAmount;
+                HealthText.text = "ur health is " + TotalHealth + "% m8";
+            }
+            else
+            {
+                HealthText.text = "ur ded";
+            }
+            HealthDrop = false;
+        }
         if (CountTimer)
         {
             Timer += Time.deltaTime;
