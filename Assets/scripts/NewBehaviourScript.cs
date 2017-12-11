@@ -24,7 +24,7 @@ public class NewBehaviourScript : MonoBehaviour
     public int TotalHealth = 100;
     public int HealthDropAmount = 10;
     public bool HealthDrop;
-    
+
     public int trackCounterTotal = 0;
     private int trackCounter = 0;
     public Text winText;
@@ -90,7 +90,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Update()
     {
-        if(HealthDrop)
+        if (HealthDrop)
         {
             if (TotalHealth > 0)
             {
@@ -157,61 +157,61 @@ public class NewBehaviourScript : MonoBehaviour
             Debug.Log("the new round number is " + round);
             checkround = false;
         }
-        
+
         if (col.gameObject.name == "col" + (currentTrack + 1))
-            {
+        {
             Debug.Log("BOOP! on col" + (currentTrack + 1));
             trackCounterTotal++;
-                currentTrack++;
-                PlayerTrackCounter++;
-                NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
-                NPC2TrackCounter = npc2.GetComponent<NPCLapCounter>().trackCounterTotal;
-                NPC3TrackCounter = npc3.GetComponent<NPCLapCounter>().trackCounterTotal;
-                NPC4TrackCounter = npc4.GetComponent<NPCLapCounter>().trackCounterTotal;
-                PlayerPos = 5;
-                if (PlayerTrackCounter > NPC1TrackCounter)
-                {
-                    PlayerPos = PlayerPos - 0.5f;
-                }
-                else
-                {
-                    PlayerPos = PlayerPos + 0.5f;
-                }
-                if (PlayerTrackCounter > NPC2TrackCounter)
-                {
-                    PlayerPos = PlayerPos - 0.5f;
-                }
-                else
-                {
-                    PlayerPos = PlayerPos + 0.5f;
-                }
-                if (PlayerTrackCounter > NPC3TrackCounter)
-                {
-                    PlayerPos = PlayerPos - 0.5f;
-                }
-                else
-                {
-                    PlayerPos = PlayerPos + 0.5f;
-                }
-                if (PlayerTrackCounter > NPC4TrackCounter)
-                {
-                    PlayerPos = PlayerPos - 0.5f;
-                }
-                else
-                {
-                    PlayerPos = PlayerPos + 0.5f;
-                }
-            PlayerPos = PlayerPos - 2;
-                UpdateStat();
-                Debug.Log("player position: " + PlayerPos);
+            currentTrack++;
+            PlayerTrackCounter++;
+            NPC1TrackCounter = npc1.GetComponent<NPCLapCounter>().trackCounterTotal;
+            NPC2TrackCounter = npc2.GetComponent<NPCLapCounter>().trackCounterTotal;
+            NPC3TrackCounter = npc3.GetComponent<NPCLapCounter>().trackCounterTotal;
+            NPC4TrackCounter = npc4.GetComponent<NPCLapCounter>().trackCounterTotal;
+            PlayerPos = 5;
+            if (PlayerTrackCounter > NPC1TrackCounter)
+            {
+                PlayerPos = PlayerPos - 0.5f;
             }
+            else
+            {
+                PlayerPos = PlayerPos + 0.5f;
+            }
+            if (PlayerTrackCounter > NPC2TrackCounter)
+            {
+                PlayerPos = PlayerPos - 0.5f;
+            }
+            else
+            {
+                PlayerPos = PlayerPos + 0.5f;
+            }
+            if (PlayerTrackCounter > NPC3TrackCounter)
+            {
+                PlayerPos = PlayerPos - 0.5f;
+            }
+            else
+            {
+                PlayerPos = PlayerPos + 0.5f;
+            }
+            if (PlayerTrackCounter > NPC4TrackCounter)
+            {
+                PlayerPos = PlayerPos - 0.5f;
+            }
+            else
+            {
+                PlayerPos = PlayerPos + 0.5f;
+            }
+            PlayerPos = PlayerPos - 2;
+            UpdateStat();
+            Debug.Log("player position: " + PlayerPos);
+        }
         if (col.gameObject.name == "villainPoint")
         {
             koos.GetComponent<Patrol2>().ready = true;
             koos.GetComponent<VillainSoundFX>().start = true;
 
         }
-        if(round > 2)
+        if (round > 2)
         {
             str = "";
             TimerTxt.text = "Time: " + Mathf.Round(Timer) + " seconds";
@@ -223,11 +223,12 @@ public class NewBehaviourScript : MonoBehaviour
             npc2.GetComponent<Patrol>().ready = false;
             npc3.GetComponent<Patrol>().ready = false;
             npc4.GetComponent<Patrol>().ready = false;
-            if(AdShown == false)
+            if (AdShown == false)
             {
-                StartCoroutine(ShowAdWhenReady());
+                //StartCoroutine(ShowAdWhenReady());
             }
-        } else
+        }
+        else
         {
             ActivatePointSystem = false;
             str = "Lap " + (round + 1) + "/3";
@@ -237,10 +238,10 @@ public class NewBehaviourScript : MonoBehaviour
     }
     void UpdateStat()
     {
-        if(PlayerPos == 1)
+        if (PlayerPos == 1)
         {
             RankTxt.text = "1st";
-            RankTxt.color = new Color(255,255,0,1);
+            RankTxt.color = new Color(255, 255, 0, 1);
         }
         if (PlayerPos == 2)
         {
@@ -258,7 +259,7 @@ public class NewBehaviourScript : MonoBehaviour
             RankTxt.color = new Color(255, 153, 51, 1);
         }
     }
-    IEnumerator ShowAdWhenReady()
+    /*IEnumerator ShowAdWhenReady()
     {
 #if !UNITY_ADS // If the Ads service is not enabled...
         if (Advertisement.isSupported)
@@ -278,4 +279,5 @@ public class NewBehaviourScript : MonoBehaviour
         Advertisement.Show();
         AdShown = true;
     }
+}*/
 }
