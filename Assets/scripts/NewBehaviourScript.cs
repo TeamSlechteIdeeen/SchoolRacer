@@ -23,6 +23,7 @@ public class NewBehaviourScript : MonoBehaviour
     public int MaxSections;
     public int TotalHealth = 100;
     public int HealthDropAmount = 10;
+    public int coinCounter = 0;
     public bool HealthDrop;
 
     public int trackCounterTotal = 0;
